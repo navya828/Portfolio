@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💱 Currency Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .converter-box {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .converter-box h2 {
+      margin: 0 0 20px;
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #00695c;
+    }
+
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+    }
+
+    @media screen and (max-width: 480px) {
+      .converter-box {
+        padding: 30px 20px;
+      }
+
+      .converter-box h2 {
+        font-size: 22px;
+      }
+
+      input, select, button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="converter-box">
+    <h2>💱 Currency Converter</h2>
+    <label for="amount">Enter Amount</label>
+    <input type="number" id="amount" placeholder="e.g., 100" min="1" required>
+
+    <label for="from">From Currency</label>
+    <select id="from">
+      <option value="USD">USD - US Dollar</option>
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <label for="to">To Currency</label>
+    <select id="to">
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="USD">USD - US Dollar</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <button onclick="convert()">Convert</button>
+    <div id="result"></div>
+    <footer>&copy; 2025 Currency Converter | Built with ❤️ by Lohitha</footer>
+  </div>
+
+  <script>
+    async function convert() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerText = "⚠️ Please enter a valid amount.";
+        resultDiv.style.color = "red";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+        const data = await res.json();
+        const rate = data.rates[to];
+        const converted = (amount * rate).toFixed(2);
+
+        resultDiv.innerHTML = `<strong>${amount} ${from} = ${converted} ${to}</strong>`;
+        resultDiv.style.color = "#00695c";
+      } catch (err) {
+        resultDiv.innerText = "❌ Failed to fetch exchange rates.";
+        resultDiv.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💱 Currency Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .converter-box {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .converter-box h2 {
+      margin: 0 0 20px;
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #00695c;
+    }
+
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+    }
+
+    @media screen and (max-width: 480px) {
+      .converter-box {
+        padding: 30px 20px;
+      }
+
+      .converter-box h2 {
+        font-size: 22px;
+      }
+
+      input, select, button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="converter-box">
+    <h2>💱 Currency Converter</h2>
+    <label for="amount">Enter Amount</label>
+    <input type="number" id="amount" placeholder="e.g., 100" min="1" required>
+
+    <label for="from">From Currency</label>
+    <select id="from">
+      <option value="USD">USD - US Dollar</option>
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <label for="to">To Currency</label>
+    <select id="to">
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="USD">USD - US Dollar</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <button onclick="convert()">Convert</button>
+    <div id="result"></div>
+    <footer>&copy; 2025 Currency Converter | Built with ❤️ by Lohitha</footer>
+  </div>
+
+  <script>
+    async function convert() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerText = "⚠️ Please enter a valid amount.";
+        resultDiv.style.color = "red";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+        const data = await res.json();
+        const rate = data.rates[to];
+        const converted = (amount * rate).toFixed(2);
+
+        resultDiv.innerHTML = `<strong>${amount} ${from} = ${converted} ${to}</strong>`;
+        resultDiv.style.color = "#00695c";
+      } catch (err) {
+        resultDiv.innerText = "❌ Failed to fetch exchange rates.";
+        resultDiv.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💱 Currency Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .converter-box {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .converter-box h2 {
+      margin: 0 0 20px;
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #00695c;
+    }
+
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+    }
+
+    @media screen and (max-width: 480px) {
+      .converter-box {
+        padding: 30px 20px;
+      }
+
+      .converter-box h2 {
+        font-size: 22px;
+      }
+
+      input, select, button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="converter-box">
+    <h2>💱 Currency Converter</h2>
+    <label for="amount">Enter Amount</label>
+    <input type="number" id="amount" placeholder="e.g., 100" min="1" required>
+
+    <label for="from">From Currency</label>
+    <select id="from">
+      <option value="USD">USD - US Dollar</option>
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <label for="to">To Currency</label>
+    <select id="to">
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="USD">USD - US Dollar</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="GBP">GBP - British Pound</option>
+      <option value="JPY">JPY - Japanese Yen</option>
+    </select>
+
+    <button onclick="convert()">Convert</button>
+    <div id="result"></div>
+    <footer>&copy; 2025 Currency Converter | Built with ❤️ by Lohitha</footer>
+  </div>
+
+  <script>
+    async function convert() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerText = "⚠️ Please enter a valid amount.";
+        resultDiv.style.color = "red";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+        const data = await res.json();
+        const rate = data.rates[to];
+        const converted = (amount * rate).toFixed(2);
+
+        resultDiv.innerHTML = `<strong>${amount} ${from} = ${converted} ${to}</strong>`;
+        resultDiv.style.color = "#00695c";
+      } catch (err) {
+        resultDiv.innerText = "❌ Failed to fetch exchange rates.";
+        resultDiv.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
